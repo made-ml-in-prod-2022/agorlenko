@@ -1,4 +1,4 @@
-from typing import Union, List, Dict
+from typing import List, Union, Dict
 
 import pandas as pd
 from sklearn.pipeline import Pipeline

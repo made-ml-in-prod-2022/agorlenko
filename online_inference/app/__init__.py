@@ -41,8 +41,8 @@ async def get_status():
 
 
 @app.post("/predict", response_model=List[DiseasePredictResponse])
-async def predict(request: HeartDiseasesModel):
-    return make_predict(request.data, model)
+async def predict(data: HeartDiseasesModel):
+    return make_predict(data.dict(), model)
 
 
 if __name__ == '__main__':

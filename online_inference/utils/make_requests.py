@@ -23,9 +23,7 @@ def main(args: Namespace):
                 'Content-Type': 'application/json',
                 'accept': 'application/json',
             },
-            json={
-                'data': request_data
-            }
+            json=request_data
         )
         print(f'status_code = {response.status_code}')
         print(f'response.json = {response.json()}')
