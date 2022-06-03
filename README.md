@@ -13,7 +13,7 @@ python -m ml_project.train.run --config configs/random_forest_config.yaml
 ## predict
 Для запуска предсказания нужно выполнить следующую команду:
 ```shell
-python -m ml_project.predict.run --config configs/train_config.yaml --test_df test_heart_cleveland_upload.csv --output_file out
+python -m ml_project.predict.run --config configs/lr_config.yaml --test_df path_to_csv --output_file out
 ```
 где configs/random_forest_config.yaml - путь к конфигу соответствующей модели.
 В параметре --test_df указываем путь к датасету, для которого надо сгенерировать предсказание.
