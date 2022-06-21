@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: online-inference
+  labels:
+    app: online-inference
+spec:
+  containers:
+    - image: agorlenko/online_inference:v1
+      name: online-inference
+      ports:
+        - containerPort: 8000
+      resources:
+        requests:
+          memory: "128Mi"
+          cpu: "1"
+        limits:
+          memory: "256Mi"
+          cpu: "2"
