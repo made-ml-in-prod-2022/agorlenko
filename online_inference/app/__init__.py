@@ -1,6 +1,8 @@
+import asyncio
 import logging
 import os
 import pickle
+import sys
 import tempfile
 from typing import Optional, List
 
@@ -12,6 +14,11 @@ from sklearn.pipeline import Pipeline
 from .prediction import make_predict
 from .validation import DiseasePredictResponse, HeartDiseasesModel
 
+
+STARTUP_DELAY = 20
+LIFETIME = 120
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -19,8 +26,13 @@ app = FastAPI()
 model: Optional[Pipeline] = None
 
 
+async def kill_app():
+    await asyncio.sleep(LIFETIME)
+    sys.exit(1)
+
+
 @app.on_event('startup')
-def load_model():
+async def load_model():
     global model
     model_url = os.getenv('MODEL_URL')
     if model_url is None:
@@ -33,6 +45,8 @@ def load_model():
         logger.info('finish downloading model')
         with open(tmp_file.name, mode='rb') as model_file:
             model = pickle.load(model_file)
+    await asyncio.sleep(STARTUP_DELAY)
+    asyncio.create_task(kill_app())
 
 
 @app.get('/health')
